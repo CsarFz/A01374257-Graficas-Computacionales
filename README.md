@@ -1,1 +1,1 @@
-# A01374257-Graficas-Computacionales
+# A01374257 Gráficas Computacionales
