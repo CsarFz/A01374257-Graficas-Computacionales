@@ -20,16 +20,17 @@ camera.position.z = 3;
 const sun = () => {
     // Crear la forma
     let geometry = new THREE.SphereGeometry(1, 5, 8);
+
     // Agregar material, color o imagen
-    let material = new THREE.MeshBasicMaterial({ color: 0xe9155f, wireframe: true, opacity: 0.7 });
+    let material = new THREE.MeshBasicMaterial({
+        color: 0xe9155f,
+        wireframe: true
+    });
     let sphere = new THREE.Mesh(geometry, material);
     scene.add(sphere);
 }
 
-const update = () => {
-    // cube.rotation.x += 0.01;
-    // cube.rotation.y += 0.005;
-}
+const update = () => {}
 
 // Dibujar escena
 const render = () => {
@@ -37,7 +38,7 @@ const render = () => {
 }
 
 const init = () => {
-    requestAnimationFrame(init);
+    // requestAnimationFrame(init);
 
     sun();
     update();
