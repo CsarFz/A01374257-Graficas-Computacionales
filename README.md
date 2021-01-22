@@ -8,11 +8,11 @@ En el directorio del proyecto, puede correr estos comandos:
 
 Si tiene npm instalado en su terminal puede instalar live-server y ejecutar el comando:
  
-### npm install -g live-server (instalación)
+### `npm install -g live-server (instalación)`
 
 y luego
 
-### live-server (ejecutar)
+### `live-server (ejecutar)`
 
 
 
