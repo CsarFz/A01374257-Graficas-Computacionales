@@ -38,7 +38,7 @@ const render = () => {
 }
 
 const init = () => {
-    // requestAnimationFrame(init);
+    requestAnimationFrame(init);
 
     sun();
     update();
