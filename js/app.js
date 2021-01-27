@@ -1,48 +1,118 @@
 let WIDTH = window.innerWidth,
     HEIGHT = window.innerHeight;
-let scene = new THREE.Scene();
-let camera = new THREE.PerspectiveCamera(75, WIDTH / HEIGHT, 0.1, 1000);
+let renderer = null,
+    canvas = null,
+    scene = null,
+    camera = null,
+    sun = null,
+    sphere = null;
+let star;
+let textureLoader = new THREE.TextureLoader();
 
-let renderer = new THREE.WebGLRenderer();
-renderer.setSize(WIDTH, HEIGHT);
-$('#bulb').append(renderer.domElement);
+$(document).ready(() => {
+    let canvas = document.getElementById('canvas-sun');
+    canvas.width = WIDTH;
+    canvas.height = HEIGHT;
 
-$('window').on('resize', () => {
-    renderer.setSize(WIDTH, HEIGHT);
-    camera.aspect = WIDTH / HEIGHT;
-    camera.updateProjectionMatrix();
+    // Crear escena
+    createScene(canvas);
+
+    // Ejecutar
+    run();
 });
 
-constrols = new THREE.OrbitControls(camera, renderer.domElement);
-
-camera.position.z = 3;
-
-const sun = () => {
-    // Crear la forma
-    let geometry = new THREE.SphereGeometry(1, 5, 8);
-
-    // Agregar material, color o imagen
-    let material = new THREE.MeshBasicMaterial({
-        color: 0xe9155f,
-        wireframe: true
-    });
-    let sphere = new THREE.Mesh(geometry, material);
-    scene.add(sphere);
-}
-
-const update = () => {}
-
-// Dibujar escena
-const render = () => {
+function render() {
+    requestAnimationFrame(render);
     renderer.render(scene, camera);
 }
 
-const init = () => {
-    requestAnimationFrame(init);
+function run() {
+    requestAnimationFrame(function () {
+        run();
+    });
 
-    sun();
-    update();
-    render();
+    // Render
+    renderer.render(scene, camera);
 }
 
-init();
+function createScene(canvasDom) {
+
+    canvas = canvasDom;
+    renderer = new THREE.WebGLRenderer({
+        canvas: canvas,
+        antialias: true
+    });
+    renderer.setSize(WIDTH, HEIGHT);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+    scene = new THREE.Scene();
+
+    buildCamara();
+    buildControls();
+    buildSun();
+    buildGround();
+}
+
+// Añade items a la escena
+function addScene(item) {
+    scene.add(item)
+}
+
+// Inicializa los controles del mouse
+function buildControls() {
+    let controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.update();
+}
+
+
+// Iniciala la camara
+function buildCamara() {
+    const ANGLE = 45;
+    const ASPECT = WIDTH / HEIGHT;
+    const NEAR = 1;
+    const FAR = 4000;
+
+    camera = new THREE.PerspectiveCamera(ANGLE, ASPECT, NEAR, FAR);
+    camera.position.z = 10;
+    addScene(camera);
+}
+
+
+// Inicializa y construye el sol
+function buildSun() {
+    // Crear la forma
+    let geometry = new THREE.SphereGeometry(1, 32, 32);
+
+    // Agregar material, color o imagen
+    // const textureUrl = 'img/sunSurfaceMaterial.jpg';
+    // let sunTexture = new THREE.TextureLoader().load(textureUrl);
+    let material = new THREE.MeshBasicMaterial({
+        color: 0xF9D71C,
+        wireframe: true
+    });
+
+    // Poner la geometría y material juntas dentro de la malla
+    sun = new THREE.Mesh(geometry, material);
+    sun.rotation.x = Math.PI;
+    sun.rotation.y = Math.PI / 2;
+
+    addScene(sun);
+}
+
+// Inicializa y construye el piso
+function buildGround() {
+    let geometry = new THREE.PlaneGeometry(100, 100);
+    let material = new THREE.MeshBasicMaterial({
+        color: 0xE9155F
+    });
+    // material.color.setHex(0xE9155F);
+
+    let ground = new THREE.Mesh(geometry, material);
+    ground.rotation.x = -Math.PI / 2;
+    ground.position.y = -4;
+
+    addScene(ground);
+    ground.receiveShadow = true;
+}

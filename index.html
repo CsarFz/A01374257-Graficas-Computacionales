@@ -6,12 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Proyecto Final - Gráficas Computacionales I2021</title>
 
+    <link rel="icon" type="image/png" sizes="48x48" href="/img/favicon.svg">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
         integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <style>
         .center-logo {
             place-content: center;
         }
+
         canvas {
             width: 100%;
             height: 100%;
@@ -31,8 +33,12 @@
     </header>
 
 
-    <main role="main" class="flex-shrink-0">
-        <div id="bulb"></div>
+    <main role="main" class="flex-shrink-0 vh-100">
+        <div class="row">
+            <div class="col-12">
+                <canvas id="canvas-sun"></canvas>
+            </div>
+        </div>
     </main>
 
     <!-- <footer class="footer mt-auto bg-dark py-3">
