@@ -53,6 +53,7 @@ function createScene(canvasDom) {
     buildControls();
     buildSun();
     buildGround();
+    buildRandomBoxes();
 }
 
 // Añade items a la escena
@@ -115,4 +116,27 @@ function buildGround() {
 
     addScene(ground);
     ground.receiveShadow = true;
+}
+
+// Inicializa y construye cubos aleatoriamente en la escena
+function buildRandomBoxes() {
+    for (let i = 0; i < 4; i++) {
+        let size = getRandom(2, 1);
+        let x = getRandom(4, -4);
+        let z = getRandom(4, -4);
+        let geometry = new THREE.BoxGeometry(size, size, size);
+        let material = new THREE.MeshBasicMaterial({
+            color: 0xFFFFFF,
+            wireframe: true
+        });
+
+        let box = new THREE.Mesh(geometry, material);
+        addScene(box);
+        box.position.set(x, -3, z);
+    }
+}
+
+// Retorna un número aleatorio entre min (incluido) y max (excluido)
+function getRandom(min, max) {
+    return Math.random() * (max - min) + min;
 }
