@@ -54,6 +54,7 @@ function createScene(canvasDom) {
     buildSun();
     buildGround();
     buildRandomBoxes();
+    buildStars();
 }
 
 // Añade items a la escena
@@ -139,4 +140,26 @@ function buildRandomBoxes() {
 // Retorna un número aleatorio entre min (incluido) y max (excluido)
 function getRandom(min, max) {
     return Math.random() * (max - min) + min;
+}
+
+// Crea un vec3 que simula las estrellas en el espacio
+function buildStars() {
+    let geometry = new THREE.Geometry();
+
+    for (let i = 0; i < 16000; i++) {
+        const x = getRandom(-100, 100);
+        const y = getRandom(-100, 100);
+        const z = getRandom(-100, 100);
+
+        const star = new THREE.Vector3(x, y, z);
+        geometry.vertices.push(star);
+    }
+
+    const material = new THREE.PointsMaterial({
+        color: 0xFFFFFF,
+        size: 0.3
+    });
+
+    star = new THREE.Points(geometry, material);
+    addScene(star);
 }
