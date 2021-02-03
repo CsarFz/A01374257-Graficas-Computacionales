@@ -1,6 +1,10 @@
 # A01374257 Gráficas Computacionales
 
-## Scripts disponibles
+## Ver el proyecto en página web
+
+### `https://graficas-computacionales.web.app/`
+
+## Correr en local
 
 En el directorio del proyecto, puede correr estos comandos:
 
